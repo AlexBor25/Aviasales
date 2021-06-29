@@ -1,0 +1,82 @@
+.transfers {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  margin-right: 20px;
+  .title {
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  .label {
+    margin-top: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .input {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    &:checked {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #2196F3;
+      background: url('../../assets/img/Shape.svg') center no-repeat;
+      transition: 0.2s linear;
+    }
+  }
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #9ABBCE;
+    border-radius: 2px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 786px) {
+  .transfers {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .title {
+    text-align: center;
+  }
+  .label {
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 694px) {
+  .label {
+    margin-right: 10px;
+    font-size: 11px;
+  }
+  .transfers {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 568px) {
+  .label {
+    font-size: 11px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 550px) {
+  .wrapper {
+    justify-content: space-between;
+  }
+}
