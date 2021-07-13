@@ -1,19 +1,31 @@
 import React from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
 import style from './filters.module.scss';
 
+import FiltersBtn from './FiltersBtn';
+import { changeFilter } from '../../redux/actions/actions';
+
 function Filters() {
+
+  const { filters, activeFilter } = useSelector(({ filters, activeFilter }) => ({ filters, activeFilter }));
+  const [filter, setFilter] = React.useState(activeFilter);
+  const dispatch = useDispatch();
+
+  const changeFilters = (event) => {
+    setFilter(event.target.name);
+    dispatch(changeFilter(event.target.name));
+  };
+
+  const btns = filters.map(btn => <FiltersBtn key={btn.name}
+                                              active={filter}
+                                              changeFilters={changeFilters}
+                                              name={btn.name}
+                                              label={btn.label} />)
+
   return (
     <section className={style.filters}>
-      <div className={style.wrapper}>
-        <button className={style.btn} type='button'>Самый дешевый</button>
-      </div>
-      <div className={style.wrapper}>
-        <button className={style.btn} type='button'>Самый быстрый</button>
-      </div>
-      <div className={style.wrapper}>
-        <button className={style.btn} type='button'>Оптимальный</button>
-      </div>
+      {btns}
     </section>
   );
 }

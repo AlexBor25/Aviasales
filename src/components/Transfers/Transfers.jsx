@@ -1,32 +1,22 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 
 import style from './transfers.module.scss';
 
+import TransfersInput from './TransfersInput';
+
 function Transfers() {
+  const {checkboxs} = useSelector(({checkboxs}) => ({checkboxs}));
+  const items = checkboxs.map(item => <TransfersInput key={item.name}
+                                                      name={item.name}
+                                                      label={item.label}
+                                                      check={item.check} />);
+
   return (
     <section className={style.transfers}>
       <h4 className={style.title}>Количество пересадок</h4>
       <div className={style.wrapper}>
-        <label className={style.label}>
-          <span className={style.checkbox} />
-          <input className={style.input} type="checkbox"/>Все
-        </label>
-        <label className={style.label}>
-          <span className={style.checkbox} />
-          <input className={style.input} type="checkbox"/>Без пересадок
-        </label>
-        <label className={style.label}>
-          <span className={style.checkbox} />
-          <input className={style.input} type="checkbox"/>1 пересадка
-        </label>
-        <label className={style.label}>
-          <span className={style.checkbox} />
-          <input className={style.input} type="checkbox"/>2 пересадки
-        </label>
-        <label className={style.label}>
-          <span className={style.checkbox} />
-          <input className={style.input} type="checkbox"/>3 пересадки
-        </label>
+        {items}
       </div>
     </section>
   );

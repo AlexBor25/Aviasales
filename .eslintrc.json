@@ -19,6 +19,7 @@
     "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
     "no-lonely-if": ["error"],
     "no-plusplus": ["off"],
+    "no-unused-vars": "warn",
     "no-restricted-syntax": "off",
     "class-methods-use-this": "off",
     "jsx-a11y/href-no-hash": ["off"],
