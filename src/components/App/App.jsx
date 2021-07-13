@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector } from 'react-redux';
-import { Alert } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './App.scss';
 import "antd/dist/antd.css";
@@ -8,27 +7,29 @@ import "antd/dist/antd.css";
 import Transfers from "../Transfers/Transfers";
 import Header from "../Header/Header";
 import Filters from "../Filters/Filters";
-import Pagination from "../Pagination/Pagination";
 import CardList from '../CardList/CardList';
+import { getId } from '../../redux/actions/actions';
+import Loader from '../Loader/Loader';
 
 
 function App() {
 
-  const {checkboxs} = useSelector(({checkboxs}) => ({checkboxs}));
+  const dispatch = useDispatch();
+  const stopped  = useSelector((state) => state.tickets.stop);
 
-  const warning = checkboxs.every(checkbox => !checkbox.check);
+  React.useEffect(() => {
+    dispatch(getId());
+  }, [dispatch]);
 
   return (
     <div className="app">
       <Header />
+      { !stopped ? <Loader /> : null }
       <div className="app__container">
         <Transfers />
         <div className="content">
           <Filters />
-          { warning
-            ? <Alert message="Рейсов, подходящих под заданные фильтры, не найдено" type="warning" showIcon closable />
-            : <CardList /> }
-          { warning ? null : <Pagination />}
+          <CardList />
         </div>
       </div>
     </div>

@@ -2,9 +2,13 @@ export const CHECKED = "CHECKED";
 export const CHANGE_FILTER = "CHANGE_FILTER";
 export const GET_TICKETS = "GET_TICKETS";
 export const GET_ID = "GET_ID";
+export const ADD_TICKETS = "ADD_TICKETS";
+export const ERROR = "ERROR";
 
 export const checked = (name) => ({type: CHECKED, payload: name});
 export const changeFilter = (name) => ({type: CHANGE_FILTER, payload: name});
+export const addTickets = () => ({type: ADD_TICKETS});
+export const hasError = (error) => ({type: ERROR, payload: error});
 
 export const getId =  () => async (dispatch) => {
   const res = await fetch(`https://front-test.beta.aviasales.ru/search`);
@@ -20,10 +24,12 @@ export const getTickets =  (id) => async (dispatch) => {
       throw new Error(`Произошла ошибка, код ${res.status}`);
     }
     const data = await res.json();
-    console.log(data);
     dispatch({type: GET_TICKETS, payload: data});
+    if(!data.stop){
+      dispatch(getTickets(id));
+    }
   } catch (error) {
-    console.log(error)
+    dispatch(getTickets(id));
   }
 };
 

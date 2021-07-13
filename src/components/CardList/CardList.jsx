@@ -1,19 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import { Alert } from 'antd';
 
 import Card from '../Card/Card';
-import { getId, getTickets } from '../../redux/actions/actions';
 import filtered from '../../utils/filter';
 import filteredTransfers from '../../utils/filteredTransfer';
+import Pagination from '../Pagination/Pagination';
+
+import { getTickets } from '../../redux/actions/actions';
 
 function CardList() {
-  const dispatch = useDispatch();
-  const { tickets, checkboxs, id, activeFilter } = useSelector(({ tickets, id, activeFilter, checkboxs }) => ({ activeFilter, tickets, id, checkboxs }));
 
-  React.useEffect(() => {
-    dispatch(getId());
-  }, [dispatch]);
+  const dispatch = useDispatch();
+  const { tickets, ticketSize, checkboxs, activeFilter, id } = useSelector(({ tickets, ticketSize, activeFilter, checkboxs, id }) => ({ activeFilter, ticketSize, tickets, checkboxs, id }));
 
   React.useEffect(() => {
     if (id) {
@@ -21,11 +21,21 @@ function CardList() {
     }
   }, [dispatch, id]);
 
-  const filteredTickets = filtered(filteredTransfers(tickets, checkboxs), activeFilter);
+  const warning = checkboxs.every(checkbox => !checkbox.check);
 
-  const items = filteredTickets.slice(0, 5).map((ticket) => <Card key={uuid()} ticket={ticket} />);
+  const filteredTickets = filtered(filteredTransfers(tickets.data, checkboxs), activeFilter);
 
-  return <>{items}</>;
+  const items = filteredTickets.slice(0, ticketSize).map((ticket) => <Card key={uuid()} ticket={ticket} />);
+
+  return (
+    <>
+      { warning ? <Alert message="Рейсов, подходящих под заданные фильтры, не найдено" type="warning" showIcon closable />
+      : <>
+          {items}
+          <Pagination />
+      </> }
+    </>
+  );
 }
 
 export default CardList;
