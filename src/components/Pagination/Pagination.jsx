@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import style from './pagination.module.scss';
-import { addTickets } from '../../redux/actions/actions';
+import { addTickets } from '../../redux/actions/actionCreators';
 
 function Pagination() {
   const dispatch = useDispatch();

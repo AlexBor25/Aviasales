@@ -7,7 +7,6 @@ import CardInfo from './CardInfo';
 
 function Card({ ticket }) {
   const { price, carrier, segments } = ticket;
-
   const [segment1, segment2] = segments;
 
   return (

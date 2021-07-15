@@ -4,11 +4,11 @@ import { v4 as uuid } from 'uuid';
 import { Alert } from 'antd';
 
 import Card from '../Card/Card';
-import filtered from '../../utils/filter';
-import filteredTransfers from '../../utils/filteredTransfer';
 import Pagination from '../Pagination/Pagination';
 
-import { getTickets } from '../../redux/actions/actions';
+import filteredTransfers from '../../utils/filteredTransfer';
+import filtered from '../../utils/filter';
+import { getTickets } from '../../redux/actions/actionCreators';
 
 function CardList() {
 
@@ -19,12 +19,11 @@ function CardList() {
     if (id) {
       dispatch(getTickets(id));
     }
-  }, [dispatch, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const warning = checkboxs.every(checkbox => !checkbox.check);
-
   const filteredTickets = filtered(filteredTransfers(tickets.data, checkboxs), activeFilter);
-
   const items = filteredTickets.slice(0, ticketSize).map((ticket) => <Card key={uuid()} ticket={ticket} />);
 
   return (

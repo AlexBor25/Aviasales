@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import style from './filters.module.scss';
 
 import FiltersBtn from './FiltersBtn';
-import { changeFilter } from '../../redux/actions/actions';
+
+import { changeFilter } from '../../redux/actions/actionCreators';
 
 function Filters() {
 

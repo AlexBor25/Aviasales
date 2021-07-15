@@ -5,16 +5,13 @@ import { format } from 'date-fns';
 import style from './card.module.scss';
 
 import getTimeFromMins from '../../utils/formatTime';
+import stopLength from '../../utils/stopLength';
 
 function CardInfo({ segment }) {
   const { origin, destination, date, stops, duration } = segment;
 
-  const transfers =
-    // eslint-disable-next-line no-nested-ternary
-    stops.length === 0 ? `Без пересадок` : stops.length < 2 ? `${stops.length} пересадка` : `${stops.length} пересадки`;
-
+  const transfers = stopLength(stops);
   const transferStops = stops.map((stop) => stop).join(' ');
-
   const departure = format(new Date(date), 'HH:mm');
   const arrival = format(new Date(new Date(date).getTime() + duration * 60000), 'HH:mm');
 

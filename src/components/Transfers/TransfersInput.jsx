@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 
 import style from './transfers.module.scss';
 
-import { checked } from "../../redux/actions/actions";
+import { checked } from "../../redux/actions/actionCreators";
 
 const TransfersInput = ({ label, check, name }) => {
   const dispatch = useDispatch();

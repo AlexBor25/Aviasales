@@ -8,9 +8,9 @@ import Transfers from "../Transfers/Transfers";
 import Header from "../Header/Header";
 import Filters from "../Filters/Filters";
 import CardList from '../CardList/CardList';
-import { getId } from '../../redux/actions/actions';
 import Loader from '../Loader/Loader';
 
+import { getId } from '../../redux/actions/actionCreators';
 
 function App() {
 
@@ -19,7 +19,8 @@ function App() {
 
   React.useEffect(() => {
     dispatch(getId());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="app">
