@@ -11,9 +11,8 @@ import filtered from '../../utils/filter';
 import { getTickets } from '../../redux/actions/actionCreators';
 
 function CardList() {
-
   const dispatch = useDispatch();
-  const { tickets, ticketSize, checkboxs, activeFilter, id } = useSelector(({ tickets, ticketSize, activeFilter, checkboxs, id }) => ({ activeFilter, ticketSize, tickets, checkboxs, id }));
+  const { tickets, ticketSize, checkboxs, activeFilter, id } = useSelector((state) => state);
 
   React.useEffect(() => {
     if (id) {
@@ -22,17 +21,20 @@ function CardList() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const warning = checkboxs.every(checkbox => !checkbox.check);
+  const warning = checkboxs.every((checkbox) => !checkbox.check);
   const filteredTickets = filtered(filteredTransfers(tickets.data, checkboxs), activeFilter);
   const items = filteredTickets.slice(0, ticketSize).map((ticket) => <Card key={uuid()} ticket={ticket} />);
 
   return (
     <>
-      { warning ? <Alert message="Рейсов, подходящих под заданные фильтры, не найдено" type="warning" showIcon closable />
-      : <>
+      {warning ? (
+        <Alert message="Рейсов, подходящих под заданные фильтры, не найдено" type="warning" showIcon closable />
+      ) : (
+        <>
           {items}
-          <Pagination />
-      </> }
+          { tickets.data.length === 0 ? null : <Pagination /> }
+        </>
+      )}
     </>
   );
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import style from './card.module.scss';
 
-import CardInfo from './CardInfo';
+import CardInfo from './components/CardInfo';
 
 function Card({ ticket }) {
   const { price, carrier, segments } = ticket;

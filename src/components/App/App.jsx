@@ -13,7 +13,6 @@ import Loader from '../Loader/Loader';
 import { getId } from '../../redux/actions/actionCreators';
 
 function App() {
-
   const dispatch = useDispatch();
   const stopped  = useSelector((state) => state.tickets.stop);
 

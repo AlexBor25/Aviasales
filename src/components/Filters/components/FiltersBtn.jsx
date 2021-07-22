@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import style from './filters.module.scss';
+import style from '../filters.module.scss';
 
 const FiltersBtn = ({ label, name, active, changeFilters }) => {
-
   const isActive = active === name ? `${style.active}` : `${style.btn}`;
 
   return (

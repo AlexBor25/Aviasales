@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 
-import style from './card.module.scss';
+import style from '../card.module.scss';
 
-import getTimeFromMins from '../../utils/formatTime';
-import stopLength from '../../utils/stopLength';
+import getTimeFromMins from '../../../utils/formatTime';
+import stopLength from '../../../utils/stopLength';
+import { arrival, departure } from '../../../utils/formatingDate';
 
 function CardInfo({ segment }) {
   const { origin, destination, date, stops, duration } = segment;
-
   const transfers = stopLength(stops);
-  const transferStops = stops.map((stop) => stop).join(' ');
-  const departure = format(new Date(date), 'HH:mm');
-  const arrival = format(new Date(new Date(date).getTime() + duration * 60000), 'HH:mm');
 
   return (
     <div className={style.info}>
@@ -22,7 +18,7 @@ function CardInfo({ segment }) {
           {origin} – {destination}
         </span>
         <span className={style.item}>
-          {departure} – {arrival}
+          {departure(date)} – {arrival(date, duration)}
         </span>
       </div>
       <div className={style.wrapper}>
@@ -31,7 +27,7 @@ function CardInfo({ segment }) {
       </div>
       <div className={style.wrapper}>
         <span className={style.descr}>{transfers}</span>
-        <span className={style.item}>{transferStops}</span>
+        <span className={style.item}>{ stops.join(' ') }</span>
       </div>
     </div>
   );
