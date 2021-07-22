@@ -1,1 +1,1 @@
-Ссылка на задание ===>>> https://aviasales-ruby.vercel.app/
+Ссылка на задание ===>>> https://aviasales-alexbor25.vercel.app
